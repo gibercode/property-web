@@ -1,6 +1,14 @@
 import { createBrowserRouter, redirect } from 'react-router'
 import App from './App'
+import { addInmuebleLoader } from './loaders/add-inmueble-loader'
+import {
+  editInmuebleLoader,
+  inmuebleDetailLoader,
+} from './loaders/inmueble-detail-loader'
 import { AppHomePage } from './pages/AppHomePage'
+import { AddInmueblePage } from './pages/AddInmueblePage'
+import { EditInmueblePage } from './pages/EditInmueblePage'
+import { InmuebleDetallePage } from './pages/InmuebleDetallePage'
 import { InmueblesPage } from './pages/InmueblesPage'
 import { LoginPage } from './pages/LoginPage'
 import { RegisterPage } from './pages/RegisterPage'
@@ -63,6 +71,21 @@ export const router = createBrowserRouter([
         path: 'app/inmuebles',
         loader: inmueblesLoader,
         element: <InmueblesPage />,
+      },
+      {
+        path: 'app/inmuebles/nuevo',
+        loader: addInmuebleLoader,
+        element: <AddInmueblePage />,
+      },
+      {
+        path: 'app/inmuebles/:id',
+        loader: inmuebleDetailLoader,
+        element: <InmuebleDetallePage />,
+      },
+      {
+        path: 'app/inmuebles/:id/editar',
+        loader: editInmuebleLoader,
+        element: <EditInmueblePage />,
       },
     ],
   },

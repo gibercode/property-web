@@ -23,12 +23,15 @@ export function Select({
 
   return (
     <div className="grid gap-1.5">
-      <label className="text-sm font-semibold text-ink" htmlFor={selectId}>
+      <label
+        className="text-xs font-semibold uppercase tracking-[0.08em] text-ash"
+        htmlFor={selectId}
+      >
         {label}
       </label>
       <select
         aria-invalid={Boolean(error)}
-        className={`min-h-11 rounded-md border border-line bg-white px-3 text-ink outline-none transition-colors focus:border-moss focus:ring-2 focus:ring-pistachio/60 ${className}`}
+        className={`min-h-11 rounded-md border border-line bg-white px-3 text-ink outline-none transition-colors focus:border-moss focus:ring-2 focus:ring-pistachio/70 ${className}`}
         id={selectId}
         {...props}
       >

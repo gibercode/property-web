@@ -29,6 +29,7 @@ export const useAuthStore = create<AuthState>()(
       user: null,
       clearSession: () => {
         set({ accessToken: null, user: null });
+        localStorage.clear();
       },
       login: async (payload) => {
         const { response } = await fetchService.request<ApiResponse<AuthUser>>(

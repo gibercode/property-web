@@ -33,7 +33,7 @@ export function ConfirmModal({
       className="fixed inset-0 z-50 grid place-items-center bg-ink/45 px-4"
       role="dialog"
     >
-      <div className="w-full max-w-md rounded-lg border border-line bg-white p-5 shadow-xl">
+      <div className="w-full max-w-md rounded-2xl border border-line bg-white p-5 shadow-[0_24px_70px_rgba(17,24,39,0.2)]">
         <div className="flex items-start gap-3">
           <span className="grid size-10 shrink-0 place-items-center rounded-full bg-coral/10 text-coral">
             <AlertTriangle aria-hidden="true" size={20} />

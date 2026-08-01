@@ -29,6 +29,22 @@ export type Inmueble = {
   deletedAt: string | null
 }
 
+export type InmueblePayload = {
+  direccion: string
+  precio: number
+  habitaciones: number
+  metrosCuadrados: number
+  tipoInmuebleId: string
+}
+
+export type InmuebleFormValues = {
+  direccion: string
+  precio: number
+  habitaciones: number
+  metrosCuadrados: number
+  tipoInmuebleId: string
+}
+
 export type InmueblesFilters = {
   page: string
   limit: string
@@ -45,5 +61,18 @@ export type InmueblesFilters = {
 export type InmueblesLoaderData = {
   filters: InmueblesFilters
   inmuebles: PaginatedResponse<Inmueble>
+  tiposInmueble: TipoInmueble[]
+}
+
+export type AddInmuebleLoaderData = {
+  tiposInmueble: TipoInmueble[]
+}
+
+export type InmuebleDetailLoaderData = {
+  inmueble: Inmueble
+}
+
+export type EditInmuebleLoaderData = {
+  inmueble: Inmueble
   tiposInmueble: TipoInmueble[]
 }

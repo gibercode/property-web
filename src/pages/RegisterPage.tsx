@@ -45,11 +45,11 @@ export function RegisterPage() {
   }
 
   return (
-    <main className="grid min-h-svh place-items-center px-4 py-8">
-      <div className="grid w-[min(980px,100%)] overflow-hidden rounded-2xl border border-line bg-white shadow-[0_30px_90px_rgba(24,24,27,0.12)] md:grid-cols-[1.1fr_0.9fr]">
+    <main className="grid min-h-svh place-items-center bg-paper px-4 py-8">
+      <div className="grid w-[min(980px,100%)] overflow-hidden rounded-3xl border border-white bg-white shadow-[0_30px_90px_rgba(17,24,39,0.14)] md:grid-cols-[1.1fr_0.9fr]">
         <section className="p-6 sm:p-8">
           <div className="flex items-center gap-3">
-            <span className="grid size-10 place-items-center rounded-lg bg-ink text-paper">
+            <span className="grid size-10 place-items-center rounded-lg bg-ink text-white">
               <Building2 aria-hidden="true" size={20} />
             </span>
             <p className="text-2xl font-bold tracking-tight text-ink">INMO</p>
@@ -145,12 +145,12 @@ export function RegisterPage() {
           </p>
         </section>
 
-        <section className="hidden bg-ink p-8 text-paper md:grid md:content-between">
+        <section className="hidden bg-ink p-8 text-white md:grid md:content-between">
           <span className="grid size-12 place-items-center rounded-xl bg-white/10">
             <Building2 aria-hidden="true" size={24} />
           </span>
           <div>
-            <p className="text-sm uppercase tracking-[0.18em] text-paper/55">
+            <p className="text-sm uppercase tracking-[0.18em] text-white/55">
               Alta de usuario
             </p>
             <p className="mt-3 text-2xl font-semibold leading-tight">

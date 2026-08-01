@@ -12,7 +12,7 @@ export function Pagination({ meta, onPageChange }: PaginationProps) {
   const hasNext = meta.page < meta.totalPages
 
   return (
-    <div className="flex flex-col gap-3 rounded-lg border border-line bg-white px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+    <div className="flex flex-col gap-3 rounded-xl border border-line bg-white/90 px-4 py-3 shadow-[0_14px_38px_rgba(17,24,39,0.06)] sm:flex-row sm:items-center sm:justify-between">
       <div>
         <p className="text-sm font-semibold text-ink">
           {meta.total} resultados
@@ -32,7 +32,7 @@ export function Pagination({ meta, onPageChange }: PaginationProps) {
           <ChevronLeft aria-hidden="true" size={16} />
           <span className="hidden sm:inline">Anterior</span>
         </Button>
-        <span className="grid min-h-11 min-w-11 place-items-center rounded-md bg-paper px-3 text-sm font-semibold text-ink">
+        <span className="grid min-h-11 min-w-11 place-items-center rounded-md border border-line bg-porcelain px-3 text-sm font-semibold text-ink">
           {meta.page}
         </span>
         <Button

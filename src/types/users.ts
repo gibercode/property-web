@@ -10,6 +10,8 @@ export type UserListItem = {
   deletedAt: string | null
 }
 
+export type UserDetail = Pick<UserListItem, 'nombre' | 'email' | 'activo'>
+
 export type UsersFilters = {
   page: string
   limit: string

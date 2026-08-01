@@ -18,17 +18,17 @@ function App() {
   return (
     <div className="min-h-svh bg-paper text-ink">
       {accessToken ? (
-        <header className="sticky top-0 z-40 border-b border-line/80 bg-white/85 backdrop-blur-xl">
-          <div className="mx-auto flex min-h-16 w-[min(1180px,calc(100%-32px))] flex-col gap-3 py-3 md:flex-row md:items-center md:justify-between">
+        <header className="sticky top-0 z-40 border-b border-white/80 bg-white/75 backdrop-blur-xl">
+          <div className="mx-auto flex min-h-16 w-[min(1220px,calc(100%-32px))] flex-col gap-3 py-3 md:flex-row md:items-center md:justify-between">
             <div className="flex items-center justify-between gap-4">
               <NavLink className="flex items-center gap-2 font-bold" to="/app">
-                <span className="grid size-9 place-items-center rounded-md bg-ink text-paper">
+                <span className="grid size-9 place-items-center rounded-lg bg-ink text-white shadow-[0_10px_22px_rgba(17,24,39,0.18)]">
                   <Building2 aria-hidden="true" size={18} />
                 </span>
                 <span className="text-xl tracking-tight">INMO</span>
               </NavLink>
               <button
-                className="inline-flex cursor-pointer items-center gap-2 rounded-md border border-line bg-white px-3 py-2 text-sm font-semibold text-ink md:hidden"
+                className="inline-flex cursor-pointer items-center gap-2 rounded-md border border-line bg-white px-3 py-2 text-sm font-semibold text-ink shadow-sm md:hidden"
                 onClick={onLogout}
                 type="button"
               >
@@ -39,7 +39,7 @@ function App() {
 
             <nav
               aria-label="Navegacion de aplicacion"
-              className="flex items-center gap-1 rounded-lg border border-line bg-paper p-1"
+              className="flex items-center gap-1 rounded-xl border border-line bg-porcelain/80 p-1"
             >
               <NavLink
                 className={({ isActive }) =>
@@ -84,7 +84,7 @@ function App() {
                 <p className="text-xs text-ash">{user?.email ?? 'Sesion activa'}</p>
               </div>
               <button
-                className="inline-flex cursor-pointer items-center gap-2 rounded-md border border-line bg-white px-3 py-2 text-sm font-semibold text-ink"
+                className="inline-flex cursor-pointer items-center gap-2 rounded-md border border-line bg-white px-3 py-2 text-sm font-semibold text-ink shadow-sm"
                 onClick={onLogout}
                 type="button"
               >

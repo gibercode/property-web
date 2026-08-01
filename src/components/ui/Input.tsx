@@ -10,12 +10,15 @@ export function Input({ error, id, label, className = '', ...props }: InputProps
 
   return (
     <div className="grid gap-1.5">
-      <label className="text-sm font-semibold text-ink" htmlFor={inputId}>
+      <label
+        className="text-xs font-semibold uppercase tracking-[0.08em] text-ash"
+        htmlFor={inputId}
+      >
         {label}
       </label>
       <input
         aria-invalid={Boolean(error)}
-        className={`min-h-11 rounded-md border border-line bg-white px-3 text-ink outline-none transition-colors placeholder:text-ash/65 focus:border-moss focus:ring-2 focus:ring-pistachio/60 ${className}`}
+        className={`min-h-11 rounded-md border border-line bg-white px-3 text-ink outline-none transition-colors placeholder:text-ash/60 focus:border-moss focus:ring-2 focus:ring-pistachio/70 ${className}`}
         id={inputId}
         {...props}
       />

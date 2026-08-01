@@ -1,5 +1,11 @@
+import { Plus, Search } from 'lucide-react'
 import { useForm } from 'react-hook-form'
-import { Link, useLoaderData, useNavigate, useNavigation } from 'react-router'
+import {
+  Link,
+  useLoaderData,
+  useNavigate,
+  useNavigation,
+} from 'react-router'
 import { InmuebleList } from '../components/inmuebles/InmuebleList'
 import { Button } from '../components/ui/Button'
 import { Input } from '../components/ui/Input'
@@ -7,6 +13,7 @@ import { PageShell } from '../components/ui/PageShell'
 import { Pagination } from '../components/ui/Pagination'
 import { Select } from '../components/ui/Select'
 import { Spinner } from '../components/ui/Spinner'
+import { useAuthStore } from '../store/auth-store'
 import type {
   InmueblesFilters,
   InmueblesLoaderData,
@@ -60,13 +67,17 @@ export function InmueblesPage() {
     useLoaderData() as InmueblesLoaderData
   const navigate = useNavigate()
   const navigation = useNavigation()
+  const currentUserEmail = useAuthStore((state) => state.user?.email)
   const {
     formState: { errors },
     handleSubmit,
     register,
     reset,
   } = useForm<InmueblesFilters>({
-    defaultValues: filters,
+    defaultValues: {
+      ...filters,
+      soloMios: filters.soloMios === 'true' ? 'true' : '',
+    },
   })
   const isLoading = navigation.state === 'loading'
 
@@ -90,7 +101,7 @@ export function InmueblesPage() {
       precioMax: '',
       precioMin: '',
       search: '',
-      soloMios: 'false',
+      soloMios: '',
       tipoInmuebleId: '',
     })
     void navigate('/app/inmuebles')
@@ -98,15 +109,27 @@ export function InmueblesPage() {
 
   return (
     <PageShell
-      description="Filtros y paginacion se resuelven en property-api; la UI no filtra datos locales."
       eyebrow="Inventario"
       title="Inmuebles"
     >
-      <Link className="w-fit text-sm font-semibold underline" to="/app">
-        Volver al panel
-      </Link>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <Link className="w-fit text-sm font-semibold text-ash" to="/app">
+          Volver al panel
+        </Link>
+        <div className="flex items-center gap-3">
+          <p className="hidden text-sm font-semibold text-ash sm:block">
+            {inmuebles.meta.total} inmuebles
+          </p>
+          <Link to="/app/inmuebles/nuevo">
+            <Button>
+              <Plus aria-hidden="true" size={16} />
+              Agregar inmueble
+            </Button>
+          </Link>
+        </div>
+      </div>
       <form
-        className="grid gap-4 rounded-lg border border-line bg-white p-5 md:grid-cols-3"
+        className="grid gap-4 rounded-2xl border border-line bg-white/92 p-5 shadow-[0_18px_55px_rgba(17,24,39,0.06)] md:grid-cols-3"
         onSubmit={handleSubmit(onSubmit)}
       >
         <Input
@@ -146,7 +169,7 @@ export function InmueblesPage() {
             min: { message: 'Debe ser mayor a 0.', value: 1 },
           })}
         />
-        <label className="flex min-h-11 items-center gap-3 self-end rounded-md border border-line bg-paper px-3 text-sm font-semibold text-ink">
+        <label className="flex min-h-11 cursor-pointer items-center gap-3 self-end rounded-md border border-line bg-porcelain px-3 text-sm font-semibold text-ink">
           <input
             className="size-4 accent-zinc-900"
             type="checkbox"
@@ -159,7 +182,14 @@ export function InmueblesPage() {
         <Select label="Direccion" options={orderOptions} {...register('order')} />
         <div className="flex gap-2 self-end">
           <Button disabled={isLoading} type="submit">
-            {isLoading ? <Spinner label="Buscando inmuebles" size="sm" /> : 'Filtrar'}
+            {isLoading ? (
+              <Spinner label="Buscando inmuebles" size="sm" />
+            ) : (
+              <>
+                <Search aria-hidden="true" size={16} />
+                Filtrar
+              </>
+            )}
           </Button>
           <Button onClick={onClear} type="button" variant="secondary">
             Limpiar
@@ -168,12 +198,15 @@ export function InmueblesPage() {
       </form>
 
       {isLoading ? (
-        <div className="grid min-h-40 place-items-center rounded-lg border border-line bg-white">
+        <div className="grid min-h-40 place-items-center rounded-2xl border border-line bg-white/92 shadow-[0_18px_55px_rgba(17,24,39,0.06)]">
           <Spinner label="Cargando inmuebles" size="lg" />
         </div>
       ) : (
         <>
-          <InmuebleList inmuebles={inmuebles.data} />
+          <InmuebleList
+            currentUserEmail={currentUserEmail}
+            inmuebles={inmuebles.data}
+          />
           <Pagination meta={inmuebles.meta} onPageChange={onPageChange} />
         </>
       )}

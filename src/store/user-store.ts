@@ -1,9 +1,10 @@
 import { create } from 'zustand'
 import type { ApiResponse, PaginatedResponse } from '../types/api'
-import type { UserListItem, UsersFilters } from '../types/users'
+import type { UserDetail, UserListItem, UsersFilters } from '../types/users'
 import { fetchService } from '../utils/fetch-service'
 
 type UserStoreState = {
+  getUser: (id: string, accessToken: string) => Promise<UserDetail>
   getUsers: (
     filters: UsersFilters,
     accessToken: string,
@@ -26,6 +27,16 @@ const buildUsersSearchParams = (filters: UsersFilters) => {
 }
 
 export const useUserStore = create<UserStoreState>()(() => ({
+  getUser: async (id, accessToken) => {
+    const { response } = await fetchService.request<ApiResponse<UserDetail>>(
+      `/usuarios/${id}`,
+      {
+        token: accessToken,
+      },
+    )
+
+    return response
+  },
   getUsers: async (filters, accessToken) => {
     const searchParams = buildUsersSearchParams(filters)
     const { response } = await fetchService.request<

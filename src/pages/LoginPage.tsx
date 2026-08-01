@@ -43,17 +43,17 @@ export function LoginPage() {
   }
 
   return (
-    <main className="grid min-h-svh place-items-center px-4 py-8">
-      <div className="grid w-[min(960px,100%)] overflow-hidden rounded-2xl border border-line bg-white shadow-[0_30px_90px_rgba(24,24,27,0.12)] md:grid-cols-[0.9fr_1.1fr]">
-        <section className="hidden bg-ink p-8 text-paper md:grid md:content-between">
+    <main className="grid min-h-svh place-items-center bg-paper px-4 py-8">
+      <div className="grid w-[min(980px,100%)] overflow-hidden rounded-3xl border border-white bg-white shadow-[0_30px_90px_rgba(17,24,39,0.14)] md:grid-cols-[0.92fr_1.08fr]">
+        <section className="hidden bg-ink p-8 text-white md:grid md:content-between">
           <div>
-            <span className="grid size-12 place-items-center rounded-xl bg-white/10">
+            <span className="grid size-12 place-items-center rounded-xl bg-white/12">
               <Building2 aria-hidden="true" size={24} />
             </span>
             <p className="mt-5 text-3xl font-bold tracking-tight">INMO</p>
           </div>
           <div>
-            <p className="text-sm uppercase tracking-[0.18em] text-paper/55">
+            <p className="text-sm uppercase tracking-[0.18em] text-white/55">
               Gestion inmobiliaria
             </p>
             <p className="mt-3 text-2xl font-semibold leading-tight">
@@ -62,9 +62,9 @@ export function LoginPage() {
           </div>
         </section>
 
-        <section className="p-6 sm:p-8">
+        <section className="bg-white p-6 sm:p-8">
           <div className="flex items-center gap-3 md:hidden">
-            <span className="grid size-10 place-items-center rounded-lg bg-ink text-paper">
+            <span className="grid size-10 place-items-center rounded-lg bg-ink text-white">
               <Building2 aria-hidden="true" size={20} />
             </span>
             <p className="text-2xl font-bold tracking-tight text-ink">INMO</p>
@@ -81,7 +81,7 @@ export function LoginPage() {
           </p>
 
           {currentUser ? (
-            <div className="mt-5 rounded-lg border border-line bg-porcelain p-4">
+            <div className="mt-5 rounded-xl border border-line bg-porcelain p-4">
               <p className="text-sm font-semibold text-ink">
                 Sesion iniciada como {currentUser.nombre}
               </p>
