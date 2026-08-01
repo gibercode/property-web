@@ -14,14 +14,14 @@ export function PageShell({
   title,
 }: PageShellProps) {
   return (
-    <main className="mx-auto grid w-[min(1120px,calc(100%-32px))] gap-8 py-10">
+    <main className="mx-auto grid w-[min(1180px,calc(100%-32px))] gap-7 py-8 md:py-10">
       <header className="max-w-3xl">
         {eyebrow ? (
-          <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-moss">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ash">
             {eyebrow}
           </p>
         ) : null}
-        <h1 className="mt-3 font-display text-5xl leading-none text-ink sm:text-6xl">
+        <h1 className="mt-3 text-4xl font-bold leading-tight text-ink sm:text-5xl">
           {title}
         </h1>
         {description ? (
