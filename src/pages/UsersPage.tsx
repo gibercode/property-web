@@ -1,13 +1,24 @@
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link, useLoaderData, useNavigate, useNavigation } from 'react-router'
+import {
+  Link,
+  useLoaderData,
+  useNavigate,
+  useNavigation,
+  useRevalidator,
+} from 'react-router'
 import { UserList } from '../components/users/UserList'
 import { Button } from '../components/ui/Button'
 import { Input } from '../components/ui/Input'
+import { Notice } from '../components/ui/Notice'
 import { PageShell } from '../components/ui/PageShell'
 import { Pagination } from '../components/ui/Pagination'
 import { Select } from '../components/ui/Select'
 import { Spinner } from '../components/ui/Spinner'
+import { useAuthStore } from '../store/auth-store'
+import type { UpdateMePayload } from '../types/auth'
 import type { UsersFilters, UsersLoaderData } from '../types/users'
+import { ApiError } from '../utils/fetch-service'
 
 const orderByOptions = [
   { label: 'Nombre', value: 'nombre' },
@@ -39,10 +50,17 @@ export function UsersPage() {
   const { filters, users } = useLoaderData() as UsersLoaderData
   const navigate = useNavigate()
   const navigation = useNavigation()
+  const revalidator = useRevalidator()
+  const currentUserEmail = useAuthStore((state) => state.user?.email)
+  const deactivateMe = useAuthStore((state) => state.deactivateMe)
+  const getMe = useAuthStore((state) => state.me)
+  const updateMe = useAuthStore((state) => state.updateMe)
+  const [actionError, setActionError] = useState('')
   const { handleSubmit, register, reset } = useForm<UsersFilters>({
     defaultValues: filters,
   })
-  const isLoading = navigation.state === 'loading'
+  const isLoading =
+    navigation.state === 'loading' || revalidator.state === 'loading'
 
   const onSubmit = (values: UsersFilters) => {
     const params = buildSearchParams({ ...values, page: '1' })
@@ -63,6 +81,36 @@ export function UsersPage() {
       search: '',
     })
     void navigate('/app/usuarios')
+  }
+
+  const onUpdateMe = async (payload: UpdateMePayload) => {
+    setActionError('')
+
+    try {
+      await updateMe(payload)
+      await revalidator.revalidate()
+    } catch (error) {
+      setActionError(
+        error instanceof ApiError
+          ? error.message
+          : 'No se pudo actualizar tu usuario.',
+      )
+    }
+  }
+
+  const onDeactivateMe = async () => {
+    setActionError('')
+
+    try {
+      await deactivateMe()
+      await navigate('/login')
+    } catch (error) {
+      setActionError(
+        error instanceof ApiError
+          ? error.message
+          : 'No se pudo dar de baja tu usuario.',
+      )
+    }
   }
 
   return (
@@ -95,13 +143,25 @@ export function UsersPage() {
         </div>
       </form>
 
+      {actionError ? (
+        <Notice title="Accion no disponible" variant="error">
+          {actionError}
+        </Notice>
+      ) : null}
+
       {isLoading ? (
         <div className="grid min-h-40 place-items-center rounded-lg border border-line bg-white">
           <Spinner label="Cargando usuarios" size="lg" />
         </div>
       ) : (
         <>
-          <UserList users={users.data} />
+          <UserList
+            currentUserEmail={currentUserEmail}
+            onDeactivateMe={onDeactivateMe}
+            onUpdateMe={onUpdateMe}
+            onViewMe={getMe}
+            users={users.data}
+          />
           <Pagination meta={users.meta} onPageChange={onPageChange} />
         </>
       )}

@@ -21,3 +21,8 @@ export type RegisterPayload = {
   email: string
   password: string
 }
+
+export type UpdateMePayload = {
+  nombre?: string
+  email?: string
+}
